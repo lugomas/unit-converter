@@ -1,9 +1,9 @@
 package converter
 
 func ConvertTemperature(value float64, from, to string) float64 {
-	if from == "Celsius" && to == "Fahrenheit" {
+	if from == "celsius" && to == "fahrenheit" {
 		return value*9/5 + 32
-	} else if from == "Fahrenheit" && to == "Celsius" {
+	} else if from == "fahrenheit" && to == "celsius" {
 		return (value - 32) * 5 / 9
 	}
 	return value

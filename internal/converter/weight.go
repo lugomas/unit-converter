@@ -6,5 +6,8 @@ func ConvertWeight(value float64, from, to string) float64 {
 	if from == "gram" && to == "kilogram" {
 		return value / 1000
 	}
+	if from == "kilogram" && to == "gram" {
+		return value * 1000
+	}
 	return value
 }
