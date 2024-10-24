@@ -2,35 +2,88 @@
 <html>
 <head>
     <title>Unit Converter</title>
+    <script>
+        function updateOptions() {
+            const type = document.getElementById("type").value;
+            const fromSelect = document.getElementById("from");
+            const toSelect = document.getElementById("to");
+
+            let fromOptions = [];
+            let toOptions = [];
+
+            // Define the options based on the selected type
+            if (type === "length") {
+                fromOptions = [
+                    { value: "meter", text: "Meter" },
+                    { value: "kilometer", text: "Kilometer" },
+                    { value: "millimeter", text: "Millimeter" },
+                    { value: "centimeter", text: "Centimeter" },
+                ];
+                toOptions = fromOptions;
+            } else if (type === "weight") {
+                fromOptions = [
+                    { value: "gram", text: "Gram" },
+                    { value: "kilogram", text: "Kilogram" },
+                ];
+                toOptions = fromOptions;
+            } else if (type === "temperature") {
+                fromOptions = [
+                    { value: "celsius", text: "Celsius" },
+                    { value: "fahrenheit", text: "Fahrenheit" },
+                ];
+                toOptions = fromOptions;
+            }
+
+            // Clear and update "From" select options
+            fromSelect.innerHTML = "";
+            toSelect.innerHTML = "";
+            fromOptions.forEach(function(option) {
+                let opt = document.createElement("option");
+                opt.value = option.value;
+                opt.text = option.text;
+                fromSelect.appendChild(opt);
+            });
+
+            // Update "To" select options
+            toOptions.forEach(function(option) {
+                let opt = document.createElement("option");
+                opt.value = option.value;
+                opt.text = option.text;
+                toSelect.appendChild(opt);
+            });
+        }
+    </script>
 </head>
-<body>
-    <h1>Unit Converter</h1>
-    <form action="/convert" method="POST">
-        <label>Type:</label>
-        <select name="type">
-            <option value="length">Length</option>
-            <option value="weight">Weight</option>
-            <option value="temperature">Temperature</option>
-        </select>
-        <br>
+<body onload="updateOptions()">
+<h1>Unit Converter</h1>
+<form action="/convert" method="POST">
+    <label>Type:</label>
+    <select name="type" id="type" onchange="updateOptions()">
+        <option value="length">Length</option>
+        <option value="weight">Weight</option>
+        <option value="temperature">Temperature</option>
+    </select>
+    <br>
 
-        <label>Value:</label>
-        <input type="number" name="value" required>
-        <br>
+    <label>Value:</label>
+    <input type="number" name="value" required>
+    <br>
 
-        <label>From:</label>
-        <input type="text" name="from" required>
-        <br>
+    <label>From:</label>
+    <select name="from" id="from">
+        <!-- Options will be dynamically populated -->
+    </select>
+    <br>
 
-        <label>To:</label>
-        <input type="text" name="to" required>
-        <br>
+    <label>To:</label>
+    <select name="to" id="to">
+        <!-- Options will be dynamically populated -->
+    </select>
+    <br>
 
-        <button type="submit">Convert</button>
-    </form>
-    <p>Result: {{.}}</p>
+    <button type="submit">Convert</button>
+</form>
+
+<p>Result: {{.}}</p>
 </body>
 </html>
-
-
-
